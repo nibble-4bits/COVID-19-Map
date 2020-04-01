@@ -1,4 +1,4 @@
-# COVID-19-Map
+# COVID-19 Map
 Map that shows the spread of COVID-19 around the world and related stats, such as:
 * Confirmed cases
 * Active cases
