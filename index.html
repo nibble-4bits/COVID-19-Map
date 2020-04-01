@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+    <!-- Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Font Awesome icons -->
+    <script src="https://kit.fontawesome.com/358c7d921e.js" crossorigin="anonymous"></script>
+
+    <!-- Custom stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/errorModal.css">
+
+    <!-- Custom script -->
+    <script defer src="index.js"></script>
+
+    <script defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-4oSdRQ8ay8GfQksRrdeneZ5TLePDu_M&callback=initMap"></script>
+
+    <title>Mapa de casos y estadísticas COVID-19</title>
+</head>
+
+<body>
+    <div class="container-fluid" id="first-row">
+        <div class="row">
+            <div class="col-12 col-lg-9">
+                <div id="map"></div>
+            </div>
+            <div class="col-12 col-lg-3 mt-3">
+                <div class="card text-center">
+                    <div class="card-header font-weight-bold text text-uppercase">Casos confirmados por país</div>
+                    <div class="card-body d-flex justify-content-center">
+                        <table id="countryCasesTable">
+                            <thead>
+                                <tr>
+                                    <th>Pos.</th>
+                                    <th>País</th>
+                                    <th>Casos</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid mt-3" id="global-stats">
+        <div class="card-deck">
+            <div class="card text-center">
+                <div class="card-header font-weight-bold text-uppercase">Última actualización</div>
+                <div class="card-body d-flex justify-content-center align-items-center">
+                    <span id="lastUpdated"></span>
+                </div>
+            </div>
+            <div class="card text-center">
+                <div class="card-header font-weight-bold text-uppercase">Casos confirmados</div>
+                <div class="card-body text-secondary d-flex justify-content-center align-items-center">
+                    <span id="globalConfirmedCases"></span>
+                </div>
+            </div>
+            <div class="card text-center">
+                <div class="card-header font-weight-bold text-uppercase">Casos activos</div>
+                <div class="card-body text-warning d-flex justify-content-center align-items-center">
+                    <span id="globalActiveCases"></span>
+                </div>
+            </div>
+            <div class="card text-center">
+                <div class="card-header font-weight-bold text-uppercase">Casos cerrados</div>
+                <div id="recovered-deaths" class="card-body d-flex justify-content-center">
+                    <div class="row">
+                        <div class="col">
+                            <h6>Recuperados</h6>
+                            <div>
+                                <span id="globalRecovered" class="text-success"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h6>Muertes</h6>
+                            <div>
+                                <span id="globalDeaths" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="container-fluid mt-4">
+        <div class="row border bg-light d-flex justify-content-center">
+            <div class="col d-flex justify-content-around align-items-center p-2">
+                <a href="#" data-toggle="modal" data-target="#modalAbout">Acerca de</a>
+                <a href="#" data-toggle="modal" data-target="#modalSource">Fuente</a>
+                <a href="#" data-toggle="modal" data-target="#modalCredits">Créditos</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Loading -->
+    <div id="modalLoading" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <div class="lds-ellipsis">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <h5 class="modal-title">Obteniendo datos...</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal About -->
+    <div class="modal fade" id="modalAbout" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-info-circle"></i>
+                        <h5 class="modal-title">Acerca de</h5>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-justify">
+                    <p>
+                        Este mapa fue creado por estudiantes de 6° semestre de la carrera de Ingeniería de Software y
+                        Sistemas Computacionales de la Universidad De La Salle Bajío, con la finalidad de informar a la
+                        comunidad sobre la expansión del COVID-19 a nivel mundial y por país.
+                    </p>
+
+                    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample">Info. para
+                        desarrolladores</a>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <span>
+                                        El código fuente del sitio puede ser consultado <a
+                                            href="http://https://github.com/nibble-4bits/sistemas-georef/tree/master/fetch/practica4">aquí</a>.
+                                    </span>
+                                </li>
+                                <li class="list-group-item">
+                                    <span>
+                                        La obtención de los datos se hace a través de esta <a
+                                            href="https://corona.lmao.ninja/" target="_blank">API</a>.
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Source -->
+    <div class="modal fade" id="modalSource" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-search"></i>
+                        <h5 class="modal-title">Fuente</h5>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    Todos los datos son obtenidos de <a href="https://www.worldometers.info/coronavirus/"
+                        target="_blank">worldometers.info/coronavirus</a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Credits -->
+    <div class="modal fade" id="modalCredits" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-hands-helping"></i>
+                        <h5 class="modal-title">Créditos</h5>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <p><b>Crédito para todos los estudiantes de 6° de Ingeniería de Software y Sistemas
+                            Computacionales:</b></p>
+                    <ul class="list-group">
+                        <li class="list-group-item">Luis De Anda</li>
+                        <li class="list-group-item">Luis Zanella</li>
+                        <li class="list-group-item">Andrei Arias</li>
+                        <li class="list-group-item">Sebastián Gutiérrez</li>
+                        <li class="list-group-item">Jorge Rangel</li>
+                        <li class="list-group-item">Kevin Acosta</li>
+                        <li class="list-group-item">Ronaldo Barrientos</li>
+                        <li class="list-group-item">Eduardo Bedolla</li>
+                        <li class="list-group-item">Gerardo Cabrera</li>
+                        <li class="list-group-item">Juan de Dios Cruz</li>
+                        <li class="list-group-item">Daniel Cuanalo</li>
+                        <li class="list-group-item">Diego De la Vega</li>
+                        <li class="list-group-item">Rodrigo De León</li>
+                        <li class="list-group-item">Diego Duarte</li>
+                        <li class="list-group-item">Sofía Enríquez</li>
+                        <li class="list-group-item">Mauricio García</li>
+                        <li class="list-group-item">Josué Romo</li>
+                        <li class="list-group-item">José Pablo Gutiérrez</li>
+                        <li class="list-group-item">Marco Lezcano</li>
+                        <li class="list-group-item">Karol Quijas</li>
+                        <li class="list-group-item">Leonardo Medina</li>
+                        <li class="list-group-item">Jonathan Muñoz</li>
+                        <li class="list-group-item">Jorge Padilla</li>
+                        <li class="list-group-item">Juan Reyes</li>
+                        <li class="list-group-item">José Luis Rodríguez</li>
+                        <li class="list-group-item">Byron Rodríguez</li>
+                        <li class="list-group-item">Luis Daniel Torres</li>
+                        <li class="list-group-item">Nicolás de Jesús Ramírez</li>
+                        <li class="list-group-item">Jean Carlo Vaca</li>
+                        <li class="list-group-item">Gerardo Vallejo</li>
+                        <li class="list-group-item">Axel Visoso</li>
+                        <li class="list-group-item">José Carlos Zamora</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Error -->
+    <div id="modalError" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE5CD;</i>
+                    </div>
+                    <h4 class="modal-title">¡Lo sentimos!</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">Ha ocurrido un error al intentar obtener los datos más recientes. Por favor
+                        inténtelo de nuevo más tarde.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger btn-block" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
