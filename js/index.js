@@ -115,13 +115,13 @@ function generateFullCountryInfoHTML(country, countryES) {
 
 function makeControl(controlDiv, country, countryES) {
     // Set up the control border.
-    var controlUI = document.createElement('div');
+    const controlUI = document.createElement('div');
     controlUI.title = countryES[country.countryInfo.iso2] || country.country;
     controlUI.className = 'controlUI';
     controlDiv.appendChild(controlUI);
 
     // Set up the inner control.
-    var controlText = document.createElement('div');
+    const controlText = document.createElement('div');
     controlText.innerHTML = generateFullCountryInfoHTML(country, countryES);
     controlText.className = 'controlText';
     controlUI.appendChild(controlText);
@@ -195,7 +195,7 @@ function addCountryMarkers(countriesData, countryNamesES, map) {
         marker.addListener('click', () => {
             closeAllInfoWindows();
             infoWindow.open(map, marker);
-            var divName = document.createElement('div');
+            const divName = document.createElement('div');
             new makeControl(divName, country, countryNamesES);
 
             let fullInfoWindow = setInterval(() => {
