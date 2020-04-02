@@ -1,8 +1,7 @@
 'use strict';
 
-const BASE_API_URL = 'https://corona.lmao.ninja';
-let objInfoWindows = {};
-let markers = {};
+const objInfoWindows = {};
+const markers = {};
 
 async function initMap() {
     const props = {
@@ -128,13 +127,7 @@ function makeControl(controlDiv, country, countryES) {
 }
 
 function updateInfoCards(globalData, countriesData, countryNamesES) {
-    const tblCountryCases = document.getElementById('countryCasesTable');
-    const divLastUpdated = document.getElementById('lastUpdated');
-    const divGlobalConfirmedCases = document.getElementById('globalConfirmedCases');
-    const divGlobalActiveCases = document.getElementById('globalActiveCases');
-    const divGlobalRecovered = document.getElementById('globalRecovered');
-    const divGlobalDeaths = document.getElementById('globalDeaths');
-
+    // For each country add a row to the 'Casos confirmados por país' card
     countriesData.forEach((country, i) => {
         const tdPosicion = document.createElement('td');
         const tdPais = document.createElement('td');
@@ -164,6 +157,7 @@ function updateInfoCards(globalData, countriesData, countryNamesES) {
         tblCountryCases.appendChild(tr);
     });
 
+    // Show the remaining statistics (last update, confirmed, active, closed cases) in the other cards
     divLastUpdated.textContent = new Date(globalData.updated).toLocaleString('es-us', { hour12: true });
     divGlobalConfirmedCases.textContent = globalData.cases.toLocaleString('en');
     divGlobalActiveCases.textContent = globalData.active.toLocaleString('en');
@@ -213,34 +207,8 @@ function addCountryMarkers(countriesData, countryNamesES, map) {
     }
 }
 
-function cacheAPIData(key, jsonData) {
-    localStorage.setItem(key, JSON.stringify(jsonData));
-}
-
-function retrieveCachedAPIData(key) {
-    return JSON.parse(localStorage.getItem(key));
-}
-
 function closeAllInfoWindows() {
     for (const infoWinKey in objInfoWindows) {
         objInfoWindows[infoWinKey].close();
     }
-}
-
-async function showModal(modalId) {
-    $(modalId).modal({ backdrop: 'static', keyboard: true, show: true });
-    return new Promise((resolve, reject) => {
-        $(modalId).on('shown.bs.modal', evt => {
-            resolve();
-        });
-    });
-}
-
-async function hideModal(modalId) {
-    $(modalId).modal('hide');
-    return new Promise((resolve, reject) => {
-        $(modalId).on('hidden.bs.modal', evt => {
-            resolve();
-        });
-    });
 }
