@@ -1,292 +1,651 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8" />
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- Material Icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
     <!-- Font Awesome icons -->
-    <script src="https://kit.fontawesome.com/358c7d921e.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/358c7d921e.js"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- Custom stylesheets -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/loader.css">
-    <link rel="stylesheet" href="css/errorModal.css">
-
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/loader.css" />
+    <link rel="stylesheet" href="css/errorModal.css" />
+    <link rel="stylesheet" href="css/alumTable.css" />
     <!-- Custom scripts -->
     <script defer src="js/constants.js"></script>
     <script defer src="js/util.js"></script>
     <script defer src="js/index.js"></script>
 
-    <script defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADjOfdGIg-7JiqjoTstMN9el4g-nLhxxA&callback=initMap"></script>
+    <script
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADjOfdGIg-7JiqjoTstMN9el4g-nLhxxA&callback=initMap"
+    ></script>
 
     <title>Mapa de casos y estadísticas COVID-19</title>
-</head>
+  </head>
 
-<body>
+  <body>
+    <h1 class="TituloMapa">Mapa de casos y estadísticas <b class="TituloMapa virusType">COVID-19</b></h1>
     <div class="container-fluid" id="first-row">
-        <div class="row">
-            <div class="col-12 col-lg-9">
-                <div id="map"></div>
-            </div>
-            <div class="col-12 col-lg-3 mt-3">
-                <div class="card text-center">
-                    <div class="card-header font-weight-bold text text-uppercase">Casos confirmados por país</div>
-                    <div class="card-body d-flex justify-content-center">
-                        <table id="countryCasesTable">
-                            <thead>
-                                <tr>
-                                    <th>Pos.</th>
-                                    <th>País</th>
-                                    <th>Casos</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-            </div>
+      <div class="row">
+        <div class="col-12 col-lg-9">
+          <div id="map"></div>
         </div>
+        <div class="col-12 col-lg-3 mt-3">
+          <div class="card text-center">
+            <div class="card-header font-weight-bold text text-uppercase">
+              Casos confirmados por país
+            </div>
+            <div class="card-body d-flex justify-content-center">
+              <table id="countryCasesTable">
+                <thead>
+                  <tr>
+                    <th>Pos.</th>
+                    <th>País</th>
+                    <th>Casos</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="container-fluid mt-3" id="global-stats">
-        <div class="card-deck">
-            <div class="card text-center">
-                <div class="card-header font-weight-bold text-uppercase">Última actualización</div>
-                <div class="card-body d-flex justify-content-center align-items-center">
-                    <span id="lastUpdated"></span>
-                </div>
-            </div>
-            <div class="card text-center">
-                <div class="card-header font-weight-bold text-uppercase">Casos confirmados</div>
-                <div class="card-body text-secondary d-flex justify-content-center align-items-center">
-                    <span id="globalConfirmedCases"></span>
-                </div>
-            </div>
-            <div class="card text-center">
-                <div class="card-header font-weight-bold text-uppercase">Casos activos</div>
-                <div class="card-body text-warning d-flex justify-content-center align-items-center">
-                    <span id="globalActiveCases"></span>
-                </div>
-            </div>
-            <div class="card text-center">
-                <div class="card-header font-weight-bold text-uppercase">Casos cerrados</div>
-                <div id="recovered-deaths" class="card-body d-flex justify-content-center">
-                    <div class="row">
-                        <div class="col">
-                            <h6>Recuperados</h6>
-                            <div>
-                                <span id="globalRecovered" class="text-success"></span>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <h6>Muertes</h6>
-                            <div>
-                                <span id="globalDeaths" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="card-deck">
+        <div class="card text-center">
+          <div class="card-header font-weight-bold text-uppercase">
+            Última actualización
+          </div>
+          <div
+            class="card-body d-flex justify-content-center align-items-center"
+          >
+            <span id="lastUpdated"></span>
+          </div>
         </div>
+        <div class="card text-center">
+          <div class="card-header font-weight-bold text-uppercase">
+            Casos confirmados
+          </div>
+          <div
+            class="card-body text-secondary d-flex justify-content-center align-items-center"
+          >
+            <span id="globalConfirmedCases"></span>
+          </div>
+        </div>
+        <div class="card text-center">
+          <div class="card-header font-weight-bold text-uppercase">
+            Casos activos
+          </div>
+          <div
+            class="card-body text-warning d-flex justify-content-center align-items-center"
+          >
+            <span id="globalActiveCases"></span>
+          </div>
+        </div>
+        <div class="card text-center">
+          <div class="card-header font-weight-bold text-uppercase">
+            Casos cerrados
+          </div>
+          <div
+            id="recovered-deaths"
+            class="card-body d-flex justify-content-center"
+          >
+            <div class="row">
+              <div class="col">
+                <h6>Recuperados</h6>
+                <div>
+                  <span id="globalRecovered" class="text-success"></span>
+                </div>
+              </div>
+              <div class="col">
+                <h6>Muertes</h6>
+                <div>
+                  <span id="globalDeaths" class="text-danger"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <footer class="container-fluid mt-4">
-        <div class="row border bg-light d-flex justify-content-center">
-            <div class="col d-flex justify-content-around align-items-center p-2">
-                <a href="#" data-toggle="modal" data-target="#modalAbout">Acerca de</a>
-                <a href="#" data-toggle="modal" data-target="#modalSource">Fuente</a>
-                <a href="#" data-toggle="modal" data-target="#modalCredits">Créditos</a>
-            </div>
+      <div class="row border bg-light d-flex justify-content-center">
+        <div class="col d-flex justify-content-around align-items-center p-2">
+          <a href="#" data-toggle="modal" data-target="#modalAbout"
+            >Acerca de</a
+          >
+          <a href="#" data-toggle="modal" data-target="#modalSource">Fuente</a>
+          <a href="#" data-toggle="modal" data-target="#modalCredits"
+            >Créditos</a
+          >
         </div>
+      </div>
     </footer>
 
     <!-- Modal Loading -->
     <div id="modalLoading" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body text-center">
-                    <div class="lds-ellipsis">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                    </div>
-                    <h5 class="modal-title">Obteniendo datos...</h5>
-                </div>
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <div class="lds-ellipsis">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
             </div>
+            <h5 class="modal-title">Obteniendo datos...</h5>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Modal About -->
     <div class="modal fade" id="modalAbout" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-info-circle"></i>
-                        <h5 class="modal-title">Acerca de</h5>
-                    </div>
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span>&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body text-justify">
-                    <p>
-                        Este mapa fue creado por estudiantes de 6° semestre de la carrera de Ingeniería de Software y
-                        Sistemas Computacionales de la Universidad De La Salle Bajío, con la finalidad de informar a la
-                        comunidad sobre la expansión del COVID-19 a nivel mundial y por país.
-                    </p>
-
-                    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample">Info. para
-                        desarrolladores</a>
-                    <div class="collapse" id="collapseExample">
-                        <div class="card card-body">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <span>
-                                        El código fuente del sitio puede ser consultado <a
-                                            href="https://github.com/nibble-4bits/COVID-19-Map">aquí</a>.
-                                    </span>
-                                </li>
-                                <li class="list-group-item">
-                                    <span>
-                                        La obtención de los datos se hace a través de esta <a
-                                            href="https://corona.lmao.ninja/" target="_blank">API</a>.
-                                    </span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                </div>
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="d-flex align-items-center">
+              <i class="fas fa-info-circle"></i>
+              <h5 class="modal-title">Acerca de</h5>
             </div>
+            <button type="button" class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body text-justify">
+            <p>
+              Este mapa fue creado por estudiantes de 6° semestre de la carrera
+              de Ingeniería de Software y Sistemas Computacionales de la
+              Universidad De La Salle Bajío, con la finalidad de informar a la
+              comunidad sobre la expansión del COVID-19 a nivel mundial y por
+              país.
+            </p>
+
+            <a
+              class="btn btn-primary"
+              data-toggle="collapse"
+              href="#collapseExample"
+              >Info. para desarrolladores</a
+            >
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span>
+                      El código fuente del sitio puede ser consultado
+                      <a href="https://github.com/nibble-4bits/COVID-19-Map"
+                        >aquí</a
+                      >.
+                    </span>
+                  </li>
+                  <li class="list-group-item">
+                    <span>
+                      La obtención de los datos se hace a través de esta
+                      <a href="https://corona.lmao.ninja/" target="_blank"
+                        >API</a
+                      >.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+              Cerrar
+            </button>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Modal Source -->
     <div class="modal fade" id="modalSource" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-search"></i>
-                        <h5 class="modal-title">Fuente</h5>
-                    </div>
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span>&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body text-center">
-                    Todos los datos son obtenidos de <a href="https://www.worldometers.info/coronavirus/"
-                        target="_blank">worldometers.info/coronavirus</a>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                </div>
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="d-flex align-items-center">
+              <i class="fas fa-search"></i>
+              <h5 class="modal-title">Fuente</h5>
             </div>
+            <button type="button" class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body text-center">
+            Todos los datos son obtenidos de
+            <a href="https://www.worldometers.info/coronavirus/" target="_blank"
+              >worldometers.info/coronavirus</a
+            >
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+              Cerrar
+            </button>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Modal Credits -->
     <div class="modal fade" id="modalCredits" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-hands-helping"></i>
-                        <h5 class="modal-title">Créditos</h5>
-                    </div>
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span>&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body text-center">
-                    <p><b>Crédito para todos los estudiantes de 6° semestre de Ingeniería de Software y Sistemas
-                            Computacionales:</b></p>
-                    <ul class="list-group">
-                        <li class="list-group-item">Luis De Anda</li>
-                        <li class="list-group-item">Luis Zanella</li>
-                        <li class="list-group-item">Andrei Arias</li>
-                        <li class="list-group-item">Sebastián Gutiérrez</li>
-                        <li class="list-group-item">Jorge Rangel</li>
-                        <li class="list-group-item">Kevin Acosta</li>
-                        <li class="list-group-item">Ronaldo Barrientos</li>
-                        <li class="list-group-item">Eduardo Bedolla</li>
-                        <li class="list-group-item">Gerardo Cabrera</li>
-                        <li class="list-group-item">Juan de Dios Cruz</li>
-                        <li class="list-group-item">Daniel Cuanalo</li>
-                        <li class="list-group-item">Diego De la Vega</li>
-                        <li class="list-group-item">Rodrigo De León</li>
-                        <li class="list-group-item">Diego Duarte</li>
-                        <li class="list-group-item">Sofía Enríquez</li>
-                        <li class="list-group-item">Mauricio García</li>
-                        <li class="list-group-item">Josué Romo</li>
-                        <li class="list-group-item">José Pablo Gutiérrez</li>
-                        <li class="list-group-item">Marco Lezcano</li>
-                        <li class="list-group-item">Karol Quijas</li>
-                        <li class="list-group-item">Leonardo Medina</li>
-                        <li class="list-group-item">Jonathan Muñoz</li>
-                        <li class="list-group-item">Jorge Padilla</li>
-                        <li class="list-group-item">Juan Reyes</li>
-                        <li class="list-group-item">José Luis Rodríguez</li>
-                        <li class="list-group-item">Byron Rodríguez</li>
-                        <li class="list-group-item">Luis Daniel Torres</li>
-                        <li class="list-group-item">Nicolás de Jesús Ramírez</li>
-                        <li class="list-group-item">Jean Carlo Vaca</li>
-                        <li class="list-group-item">Gerardo Vallejo</li>
-                        <li class="list-group-item">Axel Visoso</li>
-                        <li class="list-group-item">José Carlos Zamora</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                </div>
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="d-flex align-items-center">
+              <i class="fas fa-hands-helping"></i>
+              <h5 class="modal-title">Créditos</h5>
             </div>
+            <button type="button" class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body text-center">
+            <p>
+              <b
+                >Crédito para todos los estudiantes de 6° semestre de Ingeniería
+                de Software y Sistemas Computacionales:</b
+              >
+            </p>
+            <div class="table-users">
+              <table cellspacing="0">
+                <tr>
+                  <th>Foto</th>
+                  <th>Nombre</th>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://avatars0.githubusercontent.com/u/38052706?s=460&u=ef0556ca3dbaad872e6fc7e20b01504795a60c03&v=4"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Luis De Anda</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://avatars2.githubusercontent.com/u/34582787?s=460&u=6e9cc6105518c6523749edaf795acac401d473df&v=4"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Luis Zanella</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/90433687_2729258453861179_3049377254892109824_o.jpg?_nc_cat=104&_nc_sid=09cbfe&_nc_ohc=Km4xVjBXBl4AX_dx_0R&_nc_ht=scontent.fmex5-1.fna&oh=9dd09e78c2c31a23f4f53ba1f3a0a791&oe=5EADE5AC"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Andrei Arias</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://i.ibb.co/RvX1Rm2/sebas.jpg"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Sebastián Gutiérrez</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/65695961_2331991266890647_1009355720157560832_o.jpg?_nc_cat=109&_nc_sid=09cbfe&_nc_ohc=z1MDxBZef8UAX_BplUV&_nc_ht=scontent.fmex5-1.fna&oh=26e10a132008dd5d78587af0d7cfbdd2&oe=5EB0F115"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Jorge Rangel</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://avatars2.githubusercontent.com/u/42755641?s=460&u=7b481cc8d981976e4d624470583ec04531f60646&v=4"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Nicolás de Jesús Ramírez</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/29790305_1934421756630693_864870714123186114_n.jpg?_nc_cat=104&_nc_sid=09cbfe&_nc_ohc=cMoC4O-1pooAX_uB0Dc&_nc_ht=scontent.fmex5-1.fna&oh=d5f1d3d02f265dac5a66d907f1550987&oe=5EAE742E"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Kevin Acosta</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/11705217_851123141603924_5665433177801609488_n.jpg?_nc_cat=103&_nc_sid=09cbfe&_nc_ohc=p1_BOdyD2hkAX-fJnXg&_nc_ht=scontent.fmex5-1.fna&oh=1d9416895f26a43fd7a7ba7c2349f821&oe=5EAEE2CB"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Ronaldo Barrientos</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/23722346_879913215508810_6781199229192528087_n.jpg?_nc_cat=111&_nc_sid=09cbfe&_nc_ohc=UEpbf8rbsPIAX-y3D3J&_nc_ht=scontent.fmex5-1.fna&oh=09f5cfe0922369ffc9154fbdda5172ab&oe=5EB120B1"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Eduardo Bedolla</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/62012917_2914842611889148_7033212670383751168_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=j9LO8DTXb-8AX-YIIe_&_nc_ht=scontent.fmex5-1.fna&oh=761d8c2b826fa2fdaf026a892247023d&oe=5EB11E72"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Gerardo Cabrera</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-1/p240x240/61772475_2329397377348987_7993628823046324224_n.jpg?_nc_cat=111&_nc_sid=7206a8&_nc_ohc=7bkaTRYJnUUAX9I3Lvn&_nc_ht=scontent.fmex5-1.fna&_nc_tp=6&oh=dce89ae9c25abbf8f557d6a215df6430&oe=5EAF190D"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Juan de Dios Cruz</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-1/p240x240/10978631_343025235908445_655482787607804336_n.jpg?_nc_cat=108&_nc_sid=7206a8&_nc_ohc=AcPaxheY9gIAX_khNsw&_nc_ht=scontent.fmex5-1.fna&_nc_tp=6&oh=e8bbb0023e1ba21947fcd8ad33bafafd&oe=5EB0397B"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Daniel Cuanalo</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/76939513_2268672579911415_4293690475237343232_n.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=BxOzVV5-U10AX_P9oxp&_nc_ht=scontent.fmex5-1.fna&oh=b3e844625c9169e30b48fb080c32d6c2&oe=5EB01B42"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Diego De la Vega</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t31.0-8/23511259_1716591095032338_4280872710071233679_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=kZMSsRzPkNkAX8qpKm7&_nc_ht=scontent.fmex5-1.fna&oh=bbe5064512b1d3389c52b31e550ef659&oe=5EAFA7E5"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Rodrigo De León</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/67738823_2848887105186058_3461303526687244288_o.jpg?_nc_cat=101&_nc_sid=09cbfe&_nc_ohc=Z_k5OQyCMEoAX-q8pLN&_nc_ht=scontent.fmex5-1.fna&oh=48fc9c2f510275ff8a03b46fac519182&oe=5EAE8C17"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Diego Duarte</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/s1080x2048/91134858_10212611668125574_2080644881608343552_o.jpg?_nc_cat=111&_nc_sid=09cbfe&_nc_ohc=axUAMhNhkfUAX-02w7u&_nc_ht=scontent.fmex5-1.fna&_nc_tp=7&oh=db58631fd786ba2420e350aab5a8ce67&oe=5EAFB6D0"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Sofía Enríquez</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/13346652_1113893252009389_9163095304575749342_n.jpg?_nc_cat=108&_nc_sid=09cbfe&_nc_ohc=GOO4ZoYUqH8AX9q00Wh&_nc_ht=scontent.fmex5-1.fna&oh=dd0568ef0259b8f2436ae08bd37f8e92&oe=5EAF6637"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Mauricio García</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/82885495_10218921114531608_7615308595873185792_o.jpg?_nc_cat=108&_nc_sid=09cbfe&_nc_ohc=SBUTpF4GTEsAX8Tb_8I&_nc_ht=scontent.fmex5-1.fna&oh=94d365bbbfacfa85571d8d45b017f488&oe=5EAF206D"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Josué Romo</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/66286800_2465744350112963_408436275859685376_n.jpg?_nc_cat=110&_nc_sid=09cbfe&_nc_ohc=_kZ_YNI0YP4AX_0fxcN&_nc_ht=scontent.fmex5-1.fna&oh=d3173cfa7f8a24ac5ff6e7ecd55212ca&oe=5EAEBBA5"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">José Pablo Gutiérrez</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/37039724_2251314961562402_5085963606063841280_n.jpg?_nc_cat=100&_nc_sid=09cbfe&_nc_ohc=idCOZaLmPm8AX_NFHl1&_nc_ht=scontent.fmex5-1.fna&oh=ed5f8b7d4dfc9d4dcf1480d76fe1bd23&oe=5EAE12BD"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Marco Lezcano</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/90677103_2848505541894884_1151138169761038336_n.jpg?_nc_cat=111&_nc_sid=09cbfe&_nc_ohc=lWjT3z0U4-IAX9b6RPN&_nc_ht=scontent.fmex5-1.fna&oh=a00c70596fab2859d73d075ef00f416f&oe=5EB042A8"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Karol Quijas</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/24300884_1008418132630327_8136455220136088881_n.jpg?_nc_cat=110&_nc_sid=09cbfe&_nc_ohc=X_UShgH-AEkAX8IiUI5&_nc_ht=scontent.fmex5-1.fna&oh=9c7a6f66f80d5c530f329d66655916db&oe=5EAF7E39"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Leonardo Medina</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/35919503_1311999308944063_5575946604906545152_o.jpg?_nc_cat=109&_nc_sid=174925&_nc_ohc=oJTgIXLS12wAX8_jNDq&_nc_ht=scontent.fmex5-1.fna&oh=91c8879ee185b7ad9340512eb989e34a&oe=5EAE5D3A"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Jonathan Muñoz</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-1/p240x240/37995389_10213508244993878_3497299999782338560_n.jpg?_nc_cat=111&_nc_sid=7206a8&_nc_ohc=KYiHrD2unkwAX8Hbwjg&_nc_ht=scontent.fmex5-1.fna&_nc_tp=6&oh=b4134b538cc9b3510ff8ddc7c7389088&oe=5EADBF82"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Jorge Padilla</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-1/c0.16.240.240a/p240x240/36815668_1742359895833109_8357564809608167424_n.jpg?_nc_cat=111&_nc_sid=7206a8&_nc_ohc=tyA1lv-IQjIAX9nZij2&_nc_ht=scontent.fmex5-1.fna&oh=24702fa7db40745f6b0205060dfa7750&oe=5EAE6874"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Juan Reyes</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/78376479_3278727458866992_42050173664231424_n.jpg?_nc_cat=109&_nc_sid=09cbfe&_nc_ohc=3RHhXDu9kF4AX-V6B7N&_nc_ht=scontent.fmex5-1.fna&oh=884c7f23f5f3590b5b8e75c1d414309a&oe=5EAFBE28"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">José Luis Rodríguez</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/47422263_2307118162654482_3539269840378265600_n.jpg?_nc_cat=111&_nc_sid=174925&_nc_ohc=IhXOs71nHFYAX_phekr&_nc_ht=scontent.fmex5-1.fna&oh=a6671c7eb6cd6e56d5b649ee9e3b40e7&oe=5EAD646D"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Byron Rodríguez</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/65498978_2299614750122359_9180645809568350208_o.jpg?_nc_cat=102&_nc_sid=174925&_nc_ohc=kOJqiMTC8iMAX-0VgK7&_nc_ht=scontent.fmex5-1.fna&oh=b0f184b28d1fb683e03ebc81642c24c3&oe=5EAE6D5C"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Luis Daniel Torres</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://i.ibb.co/d4yHtkz/asdasdasdasd.jpg"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Jean Carlo Vaca</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t31.0-8/21083044_10214216885726107_32730916409550682_o.jpg?_nc_cat=109&_nc_sid=09cbfe&_nc_ohc=-lsa8FW5BHQAX-5ki6c&_nc_ht=scontent.fmex5-1.fna&oh=ab7704a805cfe16f1961c0938416306f&oe=5EAEFD64"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Gerardo Vallejo</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/p960x960/53259828_2109556429121815_2861244506072678400_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=w7C2-OHoDPMAX-ytmVA&_nc_ht=scontent.fmex5-1.fna&_nc_tp=6&oh=739ad5fe6b42db737ae7e6099ad458f3&oe=5EAEE1FA"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">Axel Visoso</td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="imgx"
+                      src="https://scontent.fmex5-1.fna.fbcdn.net/v/t1.0-9/87586201_10213817180778155_6121160928965689344_o.jpg?_nc_cat=106&_nc_sid=174925&_nc_ohc=F0vZ8QNqrMYAX8IMfQx&_nc_ht=scontent.fmex5-1.fna&oh=106d2fe54c9b06b74b738b438cb1aa56&oe=5EAE2FCB"
+                      alt=""
+                    />
+                  </td>
+                  <td class="list-group-item">José Carlos Zamora</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+              Cerrar
+            </button>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Modal Error -->
     <div id="modalError" class="modal fade">
-        <div class="modal-dialog modal-confirm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="icon-box">
-                        <i class="material-icons">&#xE5CD;</i>
-                    </div>
-                    <h4 class="modal-title">¡Lo sentimos!</h4>
-                </div>
-                <div class="modal-body">
-                    <p class="text-center">Ha ocurrido un error al intentar obtener los datos más recientes. Por favor
-                        inténtelo de nuevo más tarde.</p>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger btn-block" data-dismiss="modal">OK</button>
-                </div>
+      <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="icon-box">
+              <i class="material-icons">&#xE5CD;</i>
             </div>
+            <h4 class="modal-title">¡Lo sentimos!</h4>
+          </div>
+          <div class="modal-body">
+            <p class="text-center">
+              Ha ocurrido un error al intentar obtener los datos más recientes.
+              Por favor inténtelo de nuevo más tarde.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger btn-block" data-dismiss="modal">
+              OK
+            </button>
+          </div>
         </div>
+      </div>
     </div>
-
-</body>
-
+  </body>
 </html>

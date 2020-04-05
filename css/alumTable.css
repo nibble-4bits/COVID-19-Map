@@ -1,0 +1,58 @@
+:root{
+   --maincolor:#5658BF;
+   --maincolorD:#393B80;
+   --maincolorL:#7275FF;
+   --maincolorW:#A7BEFA;
+}
+   
+
+ .imgx {
+	 border-radius: 50%;
+	 height: 70px;
+	 width: 70px;
+}
+table{
+   width: 100%;
+}
+ .table-users {
+	 border: 1px solid var(--maincolorD);
+	 border-radius: 10px;
+	 max-width: calc(100% - 2em);
+	 margin: 1em auto;
+	 overflow: hidden;
+	 width: 400px;
+}
+
+ .table-users td, .table-users th {
+	 color: var(--maincolorD);
+	 padding: 10px;
+}
+ .table-users td {
+	 text-align: center;
+	 vertical-align: middle;
+}
+ .table-users td:last-child {
+	 font-size: 0.95em;
+	 line-height: 1.4;
+	 text-align: center;
+}
+ .table-users th {
+	 background-color: var(--maincolorL);
+	 font-weight: 300;
+}
+.table-users tr:nth-child(2n) {
+	 background-color: var(--maincolorW);
+}
+.table-users tr:nth-child(2n+1) {
+	 background-color: var(--maincolorL);
+}
+ 
+.TituloMapa{
+	text-align: center;
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	
+	border-bottom: 1px solid #ccc;
+}
+.virusType{
+	color:  #df0505 ;
+}
