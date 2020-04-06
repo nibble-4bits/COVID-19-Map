@@ -2,7 +2,7 @@
 body {
     min-height: 100%;
     background-color: #efefef;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 #first-row .card-body {
