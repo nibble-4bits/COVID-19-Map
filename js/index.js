@@ -42,6 +42,14 @@ async function initMap() {
     addCountryMarkers(countriesData, countryNamesES, map);
 
     await hideModal('#modalLoading');
+
+    var markerCluster = new MarkerClusterer(map, markers,
+        {
+            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+            gridSize: 35,
+            maxZoom: 10
+        }
+    );
 }
 
 function generateCountryInfoHTML(country, countryES) {
