@@ -56,7 +56,7 @@ function generateCountryInfoHTML(country, countryES) {
     return `
         <div class="googleMapMarker">
             <div style="display:flex; flex-direction: column; align-items: center; padding-bottom: 1em;">
-                <img src="${country.countryInfo.flag}" alt="Bandera de ${countryES[country.countryInfo.iso2] || country.country}" style="width: 60%;">
+                <img src="${country.countryInfo.flag}" alt="Bandera de ${countryES[country.countryInfo.iso2]}" style="width: 60%;">
             </div>
             <div style="display:flex; flex-direction: column; align-items: center;">
                 <div>
@@ -77,8 +77,8 @@ function generateFullCountryInfoHTML(country, countryES) {
     return `
         <div class="googleMapRightControl">
             <div style="display:flex; flex-direction: column; align-items: center; padding-bottom: 1em;">
-                <img src="${country.countryInfo.flag}" alt="Bandera de ${countryES[country.countryInfo.iso2] || country.country}" style="width: 60%;">
-                <h5 style="margin: 3px 0 0 0;">${countryES[country.countryInfo.iso2] || country.country}</h5>
+                <img src="${country.countryInfo.flag}" alt="Bandera de ${countryES[country.countryInfo.iso2]}" style="width: 60%;">
+                <h5 style="margin: 3px 0 0 0;">${countryES[country.countryInfo.iso2]}</h5>
             </div>
             <div style="display:flex; justify-content: center;">
                 <table>
@@ -123,7 +123,7 @@ function generateFullCountryInfoHTML(country, countryES) {
 function makeControl(controlDiv, country, countryES) {
     // Set up the control border.
     const controlUI = document.createElement('div');
-    controlUI.title = countryES[country.countryInfo.iso2] || country.country;
+    controlUI.title = countryES[country.countryInfo.iso2];
     controlUI.className = 'controlUI';
     controlDiv.appendChild(controlUI);
 
@@ -142,7 +142,7 @@ function updateInfoCards(globalData, countriesData, countryNamesES) {
         const tdCasos = document.createElement('td');
 
         tdPosicion.textContent = i + 1;
-        tdPais.textContent = countryNamesES[country.countryInfo.iso2] || country.country;
+        tdPais.textContent = countryNamesES[country.countryInfo.iso2];
 
         const spanCasos = document.createElement('span');
         spanCasos.textContent = country.cases.toLocaleString('en');
@@ -190,7 +190,7 @@ function addCountryMarkers(countriesData, countryNamesES, map) {
             map: map,
             icon: icon,
             position: new google.maps.LatLng(country.countryInfo.lat, country.countryInfo.long),
-            title: `${countryNamesES[country.countryInfo.iso2] || country.country}`
+            title: `${countryNamesES[country.countryInfo.iso2]}`
         });
 
         markers[country.country] = marker;
