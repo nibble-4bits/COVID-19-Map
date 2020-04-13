@@ -4,14 +4,14 @@ const objInfoWindows = {};
 const markers = {};
 
 async function initMap() {
-    const props = {
+    const mapProps = {
         center: {
             lat: 15,
             lng: 0
         },
         zoom: 2
     };
-    const map = new google.maps.Map(document.getElementById('map'), props);
+    const map = new google.maps.Map(document.getElementById('map'), mapProps);
     let globalData = null;
     let countriesData = null;
     let countryNamesES = null;
@@ -43,7 +43,7 @@ async function initMap() {
 
     await hideModal('#modalLoading');
 
-    var markerCluster = new MarkerClusterer(map, markers,
+    const markerCluster = new MarkerClusterer(map, markers,
         {
             imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
             gridSize: 35,
