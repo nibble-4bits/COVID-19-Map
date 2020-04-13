@@ -1,4 +1,4 @@
-const BASE_API_URL = 'https://corona.lmao.ninja';
+const BASE_API_URL = 'https://corona.lmao.ninja/v2';
 
 // DOM elements
 const tblCountryCases = document.getElementById('countryCasesTable');
