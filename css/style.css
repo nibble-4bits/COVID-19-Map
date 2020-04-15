@@ -69,8 +69,16 @@ body {
     margin-left: 7.5px;
 }
 
+.googleMapMarkerContainer {
+    display: none;
+}
+
 .googleMapMarker {
     max-width: 10em;
+}
+
+.googleMapRightControlContainer {
+    display: none;
 }
 
 .googleMapRightControl {
