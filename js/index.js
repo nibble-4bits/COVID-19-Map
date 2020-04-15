@@ -53,71 +53,50 @@ async function initMap() {
 }
 
 function generateCountryInfoHTML(country, countryES) {
-    return `
-        <div class="googleMapMarker">
-            <div style="display:flex; flex-direction: column; align-items: center; padding-bottom: 1em;">
-                <img src="${country.countryInfo.flag}" alt="Bandera de ${countryES[country.countryInfo.iso2]}" style="width: 60%;">
-            </div>
-            <div style="display:flex; flex-direction: column; align-items: center;">
-                <div>
-                    <b>Casos: </b>${country.cases.toLocaleString('en')}<br>
-                </div>
-                <div>
-                    <b>Muertes: </b>${country.deaths.toLocaleString('en')}<br>
-                </div>
-                <div>
-                    <b>Recuperados: </b>${country.recovered.toLocaleString('en')}<br>
-                </div>
-            </div>
-        </div>
-    `;
+    const markerContainer = document.querySelector('.googleMapMarkerContainer');
+    const img = markerContainer.querySelector('.countryFlag');
+    const cases = markerContainer.querySelector('#cases');
+    const deaths = markerContainer.querySelector('#deaths');
+    const recovered = markerContainer.querySelector('#recovered');
+
+    img.src = country.countryInfo.flag;
+    img.alt = `Bandera de ${country.countryInfo.flag}`;
+    
+    cases.textContent = country.cases.toLocaleString('en');
+    deaths.textContent = country.deaths.toLocaleString('en');
+    recovered.textContent = country.recovered.toLocaleString('en');
+
+    return markerContainer.innerHTML;
 }
 
 function generateFullCountryInfoHTML(country, countryES) {
-    return `
-        <div class="googleMapRightControl">
-            <div style="display:flex; flex-direction: column; align-items: center; padding-bottom: 1em;">
-                <img src="${country.countryInfo.flag}" alt="Bandera de ${countryES[country.countryInfo.iso2]}" style="width: 60%;">
-                <h5 style="margin: 3px 0 0 0;">${countryES[country.countryInfo.iso2]}</h5>
-            </div>
-            <div style="display:flex; justify-content: center;">
-                <table>
-                    <tr>
-                        <td><b>Casos</b></td>
-                        <td>${country.cases.toLocaleString('en')}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Nuevos hoy</b></td>
-                        <td>${country.todayCases.toLocaleString('en')}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Muertes</b></td>
-                        <td>${country.deaths.toLocaleString('en')}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Muertes hoy</b></td>
-                        <td>${country.todayDeaths.toLocaleString('en')}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Recuperados</b></td>
-                        <td>${country.recovered.toLocaleString('en')}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Activos</b></td>
-                        <td>${country.active.toLocaleString('en')}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Críticos</b></td>
-                        <td>${country.critical.toLocaleString('en')}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Casos/millón</b></td>
-                        <td>${country.casesPerOneMillion.toLocaleString('en')}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    `;
+    const markerContainer = document.querySelector('.googleMapRightControlContainer');
+    const img = markerContainer.querySelector('.countryFlag');
+    const countryName = markerContainer.querySelector('#countryName');
+    const casesCell = markerContainer.querySelector('#casesCell');
+    const todayCasesCell = markerContainer.querySelector('#todayCasesCell');
+    const deathsCell = markerContainer.querySelector('#deathsCell');
+    const todayDeathsCell = markerContainer.querySelector('#todayDeathsCell');
+    const recoveredCell = markerContainer.querySelector('#recoveredCell');
+    const activeCasesCell = markerContainer.querySelector('#activeCasesCell');
+    const criticalCasesCell = markerContainer.querySelector('#criticalCasesCell');
+    const casesPerMillionCell = markerContainer.querySelector('#casesPerMillionCell');
+
+    img.src = country.countryInfo.flag;
+    img.alt = `Bandera de ${country.countryInfo.flag}`;
+
+    countryName.textContent = countryES[country.countryInfo.iso2];
+    
+    casesCell.textContent = country.cases.toLocaleString('en');
+    todayCasesCell.textContent = country.todayCases.toLocaleString('en');
+    deathsCell.textContent = country.deaths.toLocaleString('en');
+    todayDeathsCell.textContent = country.todayDeaths.toLocaleString('en');
+    recoveredCell.textContent = country.recovered.toLocaleString('en');
+    activeCasesCell.textContent = country.active.toLocaleString('en');
+    criticalCasesCell.textContent = country.critical.toLocaleString('en');
+    casesPerMillionCell.textContent = country.casesPerOneMillion.toLocaleString('en');
+
+    return markerContainer.innerHTML;
 }
 
 function makeControl(controlDiv, country, countryES) {

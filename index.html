@@ -131,6 +131,70 @@
         </div>
     </footer>
 
+    <div class="googleMapMarkerContainer">
+        <div class="googleMapMarker">
+            <div style="display:flex; flex-direction: column; align-items: center; padding-bottom: 1em;">
+                <img class="countryFlag" style="width: 60%;">
+            </div>
+            <div style="display:flex; flex-direction: column; align-items: center;">
+                <div>
+                    <b>Casos: </b><span id="cases"></span><br>
+                </div>
+                <div>
+                    <b>Muertes: </b><span id="deaths"></span><br>
+                </div>
+                <div>
+                    <b>Recuperados: </b><span id="recovered"></span><br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="googleMapRightControlContainer">
+        <div class="googleMapRightControl">
+            <div style="display:flex; flex-direction: column; align-items: center; padding-bottom: 1em;">
+                <img class="countryFlag" style="width: 60%;">
+                <h5 style="margin: 3px 0 0 0;" id="countryName"></h5>
+            </div>
+            <div style="display:flex; justify-content: center;">
+                <table>
+                    <tr>
+                        <td><b>Casos</b></td>
+                        <td id="casesCell"></td>
+                    </tr>
+                    <tr>
+                        <td><b>Nuevos hoy</b></td>
+                        <td id="todayCasesCell"></td>
+                    </tr>
+                    <tr>
+                        <td><b>Muertes</b></td>
+                        <td id="deathsCell"></td>
+                    </tr>
+                    <tr>
+                        <td><b>Muertes hoy</b></td>
+                        <td id="todayDeathsCell"></td>
+                    </tr>
+                    <tr>
+                        <td><b>Recuperados</b></td>
+                        <td id="recoveredCell"></td>
+                    </tr>
+                    <tr>
+                        <td><b>Activos</b></td>
+                        <td id="activeCasesCell"></td>
+                    </tr>
+                    <tr>
+                        <td><b>Críticos</b></td>
+                        <td id="criticalCasesCell"></td>
+                    </tr>
+                    <tr>
+                        <td><b>Casos/millón</b></td>
+                        <td id="casesPerMillionCell"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Loading -->
     <div id="modalLoading" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
