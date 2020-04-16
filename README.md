@@ -13,7 +13,7 @@ Map that shows the spread of COVID-19 around the world and related stats, such a
 * [Loading.io](https://loading.io/css/)
 
 ## License
-[GPL v3.0](https://choosealicense.com/licenses/gpl-3.0/)
+[MIT](https://choosealicense.com/licenses/mit/)
 
 ## Acknowledgments
 * Thanks to one of my professors by giving the idea for this project to the class during a course about GIS systems!
