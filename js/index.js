@@ -60,7 +60,7 @@ function generateCountryInfoHTML(country, countryES) {
     const recovered = markerContainer.querySelector('#recovered');
 
     img.src = country.countryInfo.flag;
-    img.alt = `Bandera de ${country.countryInfo.flag}`;
+    img.alt = `Bandera de ${countryES[country.countryInfo.iso2] || country.country}`;
     
     cases.textContent = country.cases.toLocaleString('en');
     deaths.textContent = country.deaths.toLocaleString('en');
@@ -85,7 +85,7 @@ function generateFullCountryInfoHTML(country, countryES) {
     img.src = country.countryInfo.flag;
     img.alt = `Bandera de ${country.countryInfo.flag}`;
 
-    countryName.textContent = countryES[country.countryInfo.iso2];
+    countryName.textContent = countryES[country.countryInfo.iso2] || country.country;
     
     casesCell.textContent = country.cases.toLocaleString('en');
     todayCasesCell.textContent = country.todayCases.toLocaleString('en');
@@ -102,7 +102,7 @@ function generateFullCountryInfoHTML(country, countryES) {
 function makeControl(controlDiv, country, countryES) {
     // Set up the control border.
     const controlUI = document.createElement('div');
-    controlUI.title = countryES[country.countryInfo.iso2];
+    controlUI.title = countryES[country.countryInfo.iso2] || country.country;
     controlUI.className = 'controlUI';
     controlDiv.appendChild(controlUI);
 
@@ -121,7 +121,7 @@ function updateInfoCards(globalData, countriesData, countryNamesES) {
         const tdCasos = document.createElement('td');
 
         tdPosicion.textContent = i + 1;
-        tdPais.textContent = countryNamesES[country.countryInfo.iso2];
+        tdPais.textContent = countryNamesES[country.countryInfo.iso2] || country.country;
 
         const spanCasos = document.createElement('span');
         spanCasos.textContent = country.cases.toLocaleString('en');
@@ -169,7 +169,7 @@ function addCountryMarkers(countriesData, countryNamesES, map) {
             map: map,
             icon: icon,
             position: new google.maps.LatLng(country.countryInfo.lat, country.countryInfo.long),
-            title: `${countryNamesES[country.countryInfo.iso2]}`
+            title: `${countryNamesES[country.countryInfo.iso2] || country.country}`
         });
 
         markers[country.country] = marker;
