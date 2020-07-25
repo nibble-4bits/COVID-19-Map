@@ -1,6 +1,6 @@
 'use strict';
 
-const BASE_API_URL = 'https://corona.lmao.ninja/v2';
+const BASE_API_URL = 'https://disease.sh/v3/covid-19';
 
 // DOM elements
 const tblCountryCases = document.getElementById('countryCasesTable');
