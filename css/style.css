@@ -1,8 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
 body {
     min-height: 100%;
     background-color: #efefef;
     font-family: 'Roboto', sans-serif !important;
+}
+
+.tituloMapa {
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-bottom: 1px solid #ccc;
+}
+
+.virusType {
+    color: #df0505;
 }
 
 #first-row .card-body {
@@ -14,9 +25,11 @@ body {
     #first-row .row {
         overflow: hidden;
     }
+
     #first-row .card {
         height: 100%;
     }
+
     #first-row .card-body {
         min-height: 90%;
         overflow-y: auto;
@@ -27,7 +40,8 @@ body {
     width: 90%;
 }
 
-#countryCasesTable th, #countryCasesTable td {
+#countryCasesTable th,
+#countryCasesTable td {
     border-bottom: 1px solid #ccc;
 }
 
@@ -65,7 +79,9 @@ body {
     }
 }
 
-#modalAbout .modal-title, #modalSource .modal-title, #modalCredits .modal-title {
+#modalAbout .modal-title,
+#modalSource .modal-title,
+#modalCredits .modal-title {
     margin-left: 7.5px;
 }
 
@@ -102,6 +118,7 @@ body {
         width: 120px !important;
         font-size: 10px;
     }
+
     .googleMapRightControl td:nth-child(1) {
         padding: 0.125rem 0.5rem;
         text-align: right;
